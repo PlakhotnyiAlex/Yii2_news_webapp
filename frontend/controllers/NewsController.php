@@ -14,8 +14,8 @@ class NewsController extends \yii\web\Controller
      */
     public function actionIndex()
     {
-        return 'You are on News/Index page';
-       /* $title = 'You are on News/Index page';
+
+        $title = 'You are on News/Index page';
 
         $dataProvider = new ActiveDataProvider([
             'query' => News::find()->innerJoinWith('category'),
@@ -27,7 +27,7 @@ class NewsController extends \yii\web\Controller
         return $this->render('index', [
             'title' => $title,
             'dataProvider' => $dataProvider,
-        ]);*/
+        ]);
 
     }
 
@@ -38,8 +38,7 @@ class NewsController extends \yii\web\Controller
     */
     public function actionView($id)
     {
-       return 'News/View, id:' . $id;
-        /* $model = News::findOne($id);
+         $model = News::findOne($id);
 
         if ($model === null) {
             throw new NotFoundHttpException('Page not found');
@@ -48,6 +47,5 @@ class NewsController extends \yii\web\Controller
         return $this->render('view', [
             'model' => $model,
         ]);
-       */
     }
 }
