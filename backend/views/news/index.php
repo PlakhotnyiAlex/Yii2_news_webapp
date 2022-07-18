@@ -4,8 +4,9 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
-
+use backend\helpers\EnabledHelper;
 /* @var $this yii\web\View */
+/* @var $searchModel backend\models\search\News */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app', 'News');
@@ -19,17 +20,43 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <?php echo GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
         'columns' => [
 
 
             'id',
-            'category_id',
-            'slug',
+            [
+                'label' => 'Category',
+                'attribute' => 'category_id',
+                'value' => 'category.title',
+            ],
             'title',
-            'description:ntext',
-            //'enabled',
+            // example of callable function for value
+           /* [
+                'attribute' => 'description',
+                'value' => function ($model, $key, $index, $column) {
+                    return StringHelper::truncateWords($model->description, 40);
+                },
+            ],*/
+            'description',
+            // example of filter and custom helper
+           /* [
+                'attribute' => 'enabled',
+                'format' => 'boolean',
+                'value' => 'news.enabled',
+            ], */
+           [
+                'attribute' => 'enabled',
+                'filter' => EnabledHelper::getEnabledFilter(),
+                'value' => function ($model) {
+                    return EnabledHelper::getEnabledView($model->enabled);
+                },
+            ],
+
+           // 'enabled',
             [
                 'class' => ActionColumn::className(),
                 'template' => '{update} {delete}',

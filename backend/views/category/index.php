@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use backend\helpers\EnabledHelper;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -27,7 +28,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'slug',
             'title',
-            'enabled',
+            [
+                'attribute' => 'enabled',
+                'format' => 'boolean',
+            ],
+
             [
                 'class' => ActionColumn::className(),
                 'template' => '{update} {delete}',

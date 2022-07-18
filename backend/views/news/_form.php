@@ -11,10 +11,10 @@ use yii\widgets\ActiveForm;
 <div class="news-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
+    <?php echo $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
     <div class="row">
         <div class="col-md-6">
-            <?php echo $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+            <?php echo $form->field($model, 'category_id')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-md-6">
             <?php echo $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
