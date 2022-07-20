@@ -1,9 +1,5 @@
 <?php
-/**
- * User: Aleksey Stetsenko
- * Date: 11/5/19
- * Time: 6:18 PM
- */
+
 
 namespace backend\helpers;
 

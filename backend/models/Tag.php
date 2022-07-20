@@ -5,6 +5,7 @@ namespace backend\models;
 use Yii;
 use yii\behaviors\SluggableBehavior;
 
+
 /**
  * This is the model class for table "{{%tag}}".
  *
@@ -24,6 +25,7 @@ class Tag extends \yii\db\ActiveRecord
     {
         return '{{%tag}}';
     }
+
     public function behaviors()
     {
         return [

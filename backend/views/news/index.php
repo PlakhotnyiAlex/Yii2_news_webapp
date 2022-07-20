@@ -42,12 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],*/
             'description',
-            // example of filter and custom helper
-           /* [
-                'attribute' => 'enabled',
-                'format' => 'boolean',
-                'value' => 'news.enabled',
-            ], */
            [
                 'attribute' => 'enabled',
                 'filter' => EnabledHelper::getEnabledFilter(),

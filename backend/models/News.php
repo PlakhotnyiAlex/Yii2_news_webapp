@@ -4,6 +4,8 @@ namespace backend\models;
 
 use Yii;
 use yii\behaviors\SluggableBehavior;
+use yii\helpers\ArrayHelper;
+use yii\validators\RequiredValidator;
 /**
  * This is the model class for table "{{%news}}".
  *
@@ -20,6 +22,7 @@ use yii\behaviors\SluggableBehavior;
  */
 class News extends \yii\db\ActiveRecord
 {
+    public $formTag = [];
     /**
      * {@inheritdoc}
      */
@@ -37,6 +40,72 @@ class News extends \yii\db\ActiveRecord
             ],
         ];
     }
+    public function afterFind()
+    {
+        parent::afterFind();
+
+        // populates related tags data for formTag
+        $this->formTag = ArrayHelper::getColumn($this->tags, 'title');
+    }
+
+    /**
+     * @param bool $runValidation
+     * @param null $attributeNames
+     * @return bool
+     * @throws \Exception
+     */
+    public function save($runValidation = true, $attributeNames = null)
+    {
+        $transaction = Yii::$app->db->beginTransaction();
+
+        try {
+            if (! parent::save($runValidation, $attributeNames)) {
+                return false;
+            }
+
+            // Handle tags
+            if (! $this->saveTags()) {
+                return false;
+            }
+
+            $transaction->commit();
+
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+
+            throw $e;
+        }
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function saveTags()
+    {
+        // removes old tag records
+        $this->unlinkAll('tagToNews', true);
+
+        // adds new tag records;
+        foreach ($this->formTag as $tagTitle) {
+            $tag = Tag::findOne(['title' => $tagTitle]);
+
+            if (! $tag) {
+                $tag = new Tag();
+                $tag->title = $tagTitle;
+
+                if (! $tag->save()) {
+                    return false;
+                }
+            }
+
+            $this->link('tags', $tag);
+        }
+
+        return true;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -45,7 +114,7 @@ class News extends \yii\db\ActiveRecord
         return [
             ['enabled', 'default', 'value' => 0],
 
-            [['title', 'description', 'enabled'], 'required'],
+            [['title', 'description', 'enabled'], RequiredValidator::class],
 
             [['category_id'], 'integer'],
 
@@ -56,6 +125,9 @@ class News extends \yii\db\ActiveRecord
             [['slug', 'title'], 'string', 'max' => 256],
             [['slug'], 'unique'],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
+            ['formTag', 'filter', 'filter' => function ($value) {
+                return !empty($value) ? ArrayHelper::toArray($value) : [];
+            }],
         ];
     }
 

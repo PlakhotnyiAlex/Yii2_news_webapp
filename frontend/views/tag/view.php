@@ -22,6 +22,6 @@ if ($dataProvider->getCount() > 0) {
 
 echo Html::tag(
     'p',
-    Html::a('Go back', ['tag/index'], ['class' => 'btn btn-default']),
+    Html::a('Go back', ['tag/index'], ['class' => 'btn btn-info']),
     ['class' => 'text-right']
 );

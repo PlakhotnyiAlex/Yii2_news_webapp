@@ -25,6 +25,7 @@ class Category extends ActiveRecord
         return '{{%category}}';
     }
 
+
     /**
      * {@inheritdoc}
      */
@@ -39,7 +40,7 @@ class Category extends ActiveRecord
     }
 
     /**
-     * @return News|null|\yii\db\ActiveQuery
+     * @return News[]|null|\yii\db\ActiveQuery
      */
     public function getNews()
     {

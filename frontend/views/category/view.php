@@ -5,10 +5,10 @@
  */
 
 use yii\helpers\Html;
-//use yii\widgets\ListView;
+use yii\widgets\ListView;
 
 echo Html::tag('h1', 'Category name - "' . $model->title . '"');
-/*
+
 if ($dataProvider->getCount() > 0) {
 
     echo Html::tag('h3', 'List of news related to the category');
@@ -23,7 +23,6 @@ if ($dataProvider->getCount() > 0) {
 
 echo Html::tag(
     'p',
-    Html::a('Go back', ['category/index'], ['class' => 'btn btn-default']),
+    Html::a('Go back', ['category/index'], ['class' => 'btn btn-info']),
     ['class' => 'text-right']
 );
-*/
