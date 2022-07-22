@@ -28,24 +28,17 @@ AppAsset::register($this);
 <header>
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'News', 'items' => [
-            ['label' => 'News', 'url' => ['/news/index']],
-//            ['label' => 'First News', 'url' => ['/news/view', 'id' => 1]],
-            ['label' => 'Categories', 'url' => ['/category/index']],
-            ['label' => 'Tags', 'url' => ['/tag/index']],
-        ]],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
+        ['label' => Yii::t('frontend', 'Home'), 'url' => ['/site/index']],
+        ['label' => Yii::t('frontend', 'News'), 'url' => ['/news/index']],
+        ['label' => Yii::t('frontend', 'Categories'), 'url' => ['/category/index']],
+        ['label' => Yii::t('frontend', 'Tags'), 'url' => ['/tag/index']],
     ];
-    if (Yii::$app->user->isGuest) {
+ /*   if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
@@ -57,9 +50,9 @@ AppAsset::register($this);
             )
             . Html::endForm()
             . '</li>';
-    }
+    }*/
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav ml-auto'],
+        'options' => ['class' => 'navbar-nav navbar-left'],
         'items' => $menuItems,
     ]);
     NavBar::end();

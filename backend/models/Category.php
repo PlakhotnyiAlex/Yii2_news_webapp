@@ -36,6 +36,7 @@ class Category extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+
     public function rules()
     {
         return [
@@ -47,7 +48,7 @@ class Category extends \yii\db\ActiveRecord
 
             [['slug', 'title'], 'string', 'max' => 256],
 
-            [['slug'], 'unique'],
+          //  [['slug'], 'unique'],
         ];
     }
 
@@ -71,6 +72,6 @@ class Category extends \yii\db\ActiveRecord
      */
     public function getNews()
     {
-        return $this->hasMany(News::className(), ['category_id' => 'id']);
+        return $this->hasMany(News::class, ['category_id' => 'id']);
     }
 }

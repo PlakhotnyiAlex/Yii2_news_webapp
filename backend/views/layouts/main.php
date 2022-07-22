@@ -35,16 +35,16 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'News', 'url' => ['/news/index']],
         ['label' => 'Category', 'url' => ['/category/index']],
+        ['label' => 'News', 'url' => ['/news/index']],
         ['label' => 'Tag', 'url' => ['/tag/index']],
+        ['label' => 'Translations', 'url' => ['/message/index']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
         $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
+            . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
                 'Logout (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout']

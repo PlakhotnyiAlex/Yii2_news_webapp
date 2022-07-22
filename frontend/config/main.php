@@ -9,6 +9,7 @@ $params = array_merge(
 return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
+    'language' => 'ru-RU',
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
@@ -53,6 +54,25 @@ return [
                 // Tags
                 'tag' => 'tag/index',
                 'tag/<id:[0-9]+>' => 'tag/view',
+            ],
+        ],
+        'i18n' => [
+            'translations' => [
+                'frontend' => [
+//                    'class' => 'yii\i18n\PhpMessageSource',
+                    'class' => 'yii\i18n\DbMessageSource',
+//                    'basePath' => '@frontend/messages',
+                    'sourceLanguage' => 'en-US',
+//                    'fileMap' => [
+//                        'frontend' => 'frontend.php',
+//                    ],
+                ],
+                'yii' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'sourceLanguage' => 'en-US',
+                    'basePath' => '@frontend/messages'
+                ],
+
             ],
         ],
 
